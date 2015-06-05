@@ -1,0 +1,63 @@
+#!/bin/bash
+#
+# fembackend    rogetto Architetture Fisse e Mobili Backend in Golang
+#
+# chkconfig: 345 70 30
+# description: fem backend service
+# processname: fembackend
+
+#
+#   	Progetto Architetture Fisse e Mobili Backend Daemon
+#        Copyright (Ca) 2015+  Gabriele Baldoni
+#
+
+
+# Source function library.
+. /etc/init.d/functions
+
+RETVAL=0
+prog="fembackend"
+LOCKFILE=/var/lock/subsys/$prog
+
+# Declare variables for GlassFish Server
+#GLASSFISH_DIR=/home/gfish/glassfish4
+GLASSFISH_USER=daemon
+ASADMIN=/usr/bin/fembackend
+DOMAIN=domain1
+
+start() {
+        echo -n "Starting $prog: "
+        daemon --user $GLASSFISH_USER $ASADMIN 
+        RETVAL=$?
+        [ $RETVAL -eq 0 ] && touch $LOCKFILE
+        echo
+        return $RETVAL
+}
+
+stop() {
+        echo -n "Shutting down $prog: "
+        killall fembackend
+        #RETVAL=$
+        echo
+        #return $RETVAL
+}
+
+
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    *)
+        echo "Usage: $prog {start|stop|restart}"
+        exit 1
+        ;;
+esac
+exit $RETVAL
