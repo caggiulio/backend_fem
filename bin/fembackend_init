@@ -16,13 +16,13 @@
 . /etc/init.d/functions
 
 RETVAL=0
-prog="fembackend"
+prog="fembackend_starter"
 LOCKFILE=/var/lock/subsys/$prog
 
 # Declare variables for GlassFish Server
 #GLASSFISH_DIR=/home/gfish/glassfish4
 GLASSFISH_USER=daemon
-ASADMIN=/usr/bin/fembackend
+ASADMIN=/usr/bin/fembackend_starter
 DOMAIN=domain1
 
 start() {
