@@ -21,14 +21,14 @@ func main(){
 
 
 func startListening(){
-	http.HandleFunc("/hello", server.HandlerHW)
+	http.HandleFunc("/api/hello", server.HandlerHW)
     fmt.Println("Serving on http://localhost:8888/hello")
 
 
-    http.HandleFunc("/access", server.HandlerGetAccess)
+    http.HandleFunc("/api/access", server.HandlerGetAccess)
     fmt.Println("Serving on http://localhost:8888/access")
 
-    http.HandleFunc("/access/new", server.HandlerSaveAccess)
+    http.HandleFunc("/api/access/new", server.HandlerSaveAccess)
     fmt.Println("Serving on http://localhost:8888/access/new")
 
 
