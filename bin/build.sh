@@ -23,11 +23,11 @@ go build -o $APPPATH/bin/fembackend $APPPATH/src/main/main.go
 
 echo "Compiled!"
 
-echo "installing"
+echo "copy as root $APPPATH/bin/fembackend to /usr/bin/fembackend"
 
 #cp gdgbackend /etc/init.d/gdgbackend
 
-cp $APPPATH/bin/fembackend /usr/bin
+#cp $APPPATH/bin/fembackend /usr/bin
 #cp $APPPATH/bin/gdgserverstarter /usr/local/bin
 
 #chkconfig gdgbackend on
