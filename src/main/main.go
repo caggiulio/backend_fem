@@ -22,15 +22,15 @@ func main(){
 
 func startListening(){
 	http.HandleFunc("/api/hello", server.HandlerHW)
-    fmt.Println("Serving on http://localhost:8888/hello")
+    fmt.Println("Serving on http://localhost:8008/hello")
 
 
     http.HandleFunc("/api/access", server.HandlerGetAccess)
-    fmt.Println("Serving on http://localhost:8888/access")
+    fmt.Println("Serving on http://localhost:8008/access")
 
     http.HandleFunc("/api/access/new", server.HandlerSaveAccess)
-    fmt.Println("Serving on http://localhost:8888/access/new")
+    fmt.Println("Serving on http://localhost:8008/access/new")
 
 
-    log.Fatal(http.ListenAndServe("localhost:8888", nil))
+    log.Fatal(http.ListenAndServe("localhost:8008", nil))
 }
