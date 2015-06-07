@@ -19,9 +19,8 @@ func main(){
 
     mConf = utils.LoadConfiguration()
     if (mConf.Check()) {
-        startListening();
-    }
-    else{
+        startListening()
+    }else{
         utils.Log(utils.ERROR, "ProgettoFEM Service", "Error during Configuration load...")
         os.Exit(-1)
     }
