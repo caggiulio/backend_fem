@@ -9,7 +9,7 @@ type Access_Request struct{
 
     Door string `json:"door"`
     Who string  `json:"who"`
-    Date string  `json:"time"`
+    Date string  `json:"time,int"`
     House int `json:"house"`
 }
 
@@ -18,7 +18,7 @@ type Access struct{
     ID 	int     `json:"idaccess"`    //indicano come sono chiamti i campi nel json
     Door string	`json:"door"`
     Who string	`json:"who"`
-    Date string  `json:"time"`
+    Date string  `json:"time,int"`
     House int   `json:"id_house"`
 
 }

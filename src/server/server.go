@@ -71,7 +71,7 @@ func (back FEMbackend) HandlerSaveAccess(w http.ResponseWriter, r *http.Request)
 		utils.Log(utils.ASSERT, "ProgettoFEM Backend", "HTTP Method is correct")
 
 
-		//{"door":"Garage Door","who":"Salvatore","time":123456789,"idhouse":3}
+		//{"door":"Garage Door","who":"Salvatore","time":1433697822,"idhouse":3}
 		req := r.FormValue("req") //leggo il parametro
 
 		n,err=access.CreateFromJSONRequest(req)
