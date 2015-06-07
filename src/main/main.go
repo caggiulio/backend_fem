@@ -48,7 +48,7 @@ func startListening(){
     utils.Log(utils.ASSERT, "ProgettoFEM Service", "Serving on "+mConf.Address+":"+mConf.Port+"/api/access/new")
 
 
-    http.HandleFunc("/api/user/new", Backend.HandlerSaveAccess)
+    http.HandleFunc("/api/user/new", Backend.HandlerSaveUser)
     utils.Log(utils.ASSERT, "ProgettoFEM Service", "Serving on "+mConf.Address+":"+mConf.Port+"/api/user/new")
 
 
