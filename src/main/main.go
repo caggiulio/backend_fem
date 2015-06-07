@@ -32,16 +32,24 @@ func main(){
 func startListening(){
 
 
+    var Backend server.FEMbackend
 
-	http.HandleFunc("/api/hello", server.HandlerHW)
-    fmt.Println("Serving on http://localhost:8008/hello")
+    Backend.Initialize()
 
 
-    http.HandleFunc("/api/access", server.HandlerGetAccess)
-    fmt.Println("Serving on http://localhost:8008/access")
+	http.HandleFunc("/api/hello", Backend.HandlerHW)
+    utils.Log(utils.ASSERT, "ProgettoFEM Service", "Serving on "+mConf.Address+":"+mConf.Port+"/api/hello")
 
-    http.HandleFunc("/api/access/new", server.HandlerSaveAccess)
-    fmt.Println("Serving on http://localhost:8008/access/new")
+
+    http.HandleFunc("/api/access", Backend.HandlerGetAccess)
+    utils.Log(utils.ASSERT, "ProgettoFEM Service", "Serving on "+mConf.Address+":"+mConf.Port+"/api/access")
+
+    http.HandleFunc("/api/access/new", Backend.HandlerSaveAccess)
+    utils.Log(utils.ASSERT, "ProgettoFEM Service", "Serving on "+mConf.Address+":"+mConf.Port+"/api/access/new")
+
+
+    http.HandleFunc("/api/user/new", Backend.HandlerSaveAccess)
+    utils.Log(utils.ASSERT, "ProgettoFEM Service", "Serving on "+mConf.Address+":"+mConf.Port+"/api/user/new")
 
 
     err := http.ListenAndServe(mConf.Address+":"+mConf.Port, nil) 

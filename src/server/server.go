@@ -6,10 +6,27 @@ import(
 "net/http"
 "access"
 "time"
+"user"
+"utils"
+"dbhelper"
 ) 
 
 
-func HandlerHW(w http.ResponseWriter, r *http.Request) { //esportata inizia per maiuscola
+
+type FEMbackend struct{
+	mConfiguration utils.Configuration
+	mDBHelper dbhelper.DBHelper
+
+}
+
+func (back *FEMbackend) Initialize() {
+	back.mConfiguration=utils.LoadConfiguration()
+	back.mDBHelper.SetConfiguration(back.mConfiguration)
+}
+
+
+
+func (back FEMbackend) HandlerHW(w http.ResponseWriter, r *http.Request) { //esportata inizia per maiuscola
 
 	printResult(w,"Hello World!")
 
@@ -17,7 +34,7 @@ func HandlerHW(w http.ResponseWriter, r *http.Request) { //esportata inizia per 
 
 
 
-func HandlerGetAccess(w http.ResponseWriter, r *http.Request) { //esportata inizia per maiuscola
+func (back FEMbackend) HandlerGetAccess(w http.ResponseWriter, r *http.Request) { //esportata inizia per maiuscola
 
 	var n access.Access
 
@@ -41,7 +58,7 @@ func HandlerGetAccess(w http.ResponseWriter, r *http.Request) { //esportata iniz
     }
 }
 
-func HandlerSaveAccess(w http.ResponseWriter, r *http.Request) { //esportata inizia per maiuscola
+func (back FEMbackend) HandlerSaveAccess(w http.ResponseWriter, r *http.Request) { //esportata inizia per maiuscola
 
 	//var n access.Access
 	var err error
@@ -56,6 +73,38 @@ func HandlerSaveAccess(w http.ResponseWriter, r *http.Request) { //esportata ini
 		req := r.FormValue("req") //leggo il parametro
 
 		_,err=access.CreateFromJSON(req)
+		if err!=nil{
+			fmt.Println("error %s",err)
+		}else{
+			printResult(w,"{res:true}")
+			//printResult(w,n.Title + " \n" + n.SubTitle + " \n" + n.Content)
+		}
+
+	}else{
+		fmt.Println("HTTP Method is wrong")
+		printResult(w,"404")
+			//si potrebbe ridirezionare ad un errore
+	}
+
+
+}
+
+
+func (back FEMbackend) HandlerSaveUser(w http.ResponseWriter, r *http.Request) { //esportata inizia per maiuscola
+
+	//var n access.Access
+	var err error
+
+
+	if (r.Method == "POST"){
+		fmt.Println("HTTP Method is correct")
+
+
+		//{"title":"Go is stunning!!","sub":"Go http package features","content":"Great http services with go and is awesome http package"}
+
+		req := r.FormValue("req") //leggo il parametro
+
+		_,err=user.CreateFromJSON(req)
 		if err!=nil{
 			fmt.Println("error %s",err)
 		}else{
