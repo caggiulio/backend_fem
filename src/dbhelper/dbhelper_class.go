@@ -28,6 +28,20 @@ type DBHelper struct {
 
 
 
+type STMTResult struct{
+	ID           int64
+	RowsAffected int64
+}
+
+func countRowsSelected(rows *sql.Rows, c chan int) {
+	i := 0;
+	for rows.Next() {
+		i++
+	}
+
+	c<-i;
+}
+
 
 func (dbh *DBHelper)LoadConfiguration() {
 	dbh.Config=utils.LoadConfiguration()
