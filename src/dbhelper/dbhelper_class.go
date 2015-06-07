@@ -1,6 +1,6 @@
 /**
-		GDG GoLang Backend Daemon
-        Copyright (C) 2014+  Gabriele Baldoni
+		Progetto Architetture 
+        Copyright (C) 2015+  Gabriele Baldoni
  */
 
 package dbhelper
