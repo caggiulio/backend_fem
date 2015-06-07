@@ -5,10 +5,10 @@ package main
 
 import (
 		"fmt"
-		"log"
     	"net/http"
     	"server"
-        "utils")
+        "utils"
+        "os")
 
 
 var mConf utils.Configuration
@@ -44,7 +44,7 @@ func startListening(){
     fmt.Println("Serving on http://localhost:8008/access/new")
 
 
-    err := http.ListenAndServe(conf.Address+":"+conf.Port, nil) 
+    err := http.ListenAndServe(mConf.Address+":"+mConf.Port, nil) 
         if (err != nil) {
             utils.Log(utils.ERROR, "ProgettoFEM Service", "Error on ListenAndServe: "+err.Error())
         }
