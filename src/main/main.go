@@ -7,22 +7,33 @@ import (
 		"fmt"
 		"log"
     	"net/http"
-    	"server")
+    	"server"
+        "utils")
+
+
+var mConf utils.Configuration
 
 func main(){
 	fmt.Println("Hello World!");
 
 
-    //fare demone
-	startListening();
-
-
+    mConf = utils.LoadConfiguration()
+    if (mConf.Check()) {
+        startListening();
+    }
+    else{
+        utils.Log(utils.ERROR, "ProgettoFEM Service", "Error during Configuration load...")
+        os.Exit(-1)
+    }
 
 }
 
 
 
 func startListening(){
+
+
+
 	http.HandleFunc("/api/hello", server.HandlerHW)
     fmt.Println("Serving on http://localhost:8008/hello")
 
@@ -34,5 +45,8 @@ func startListening(){
     fmt.Println("Serving on http://localhost:8008/access/new")
 
 
-    log.Fatal(http.ListenAndServe("localhost:8008", nil)) //questa porta per permettere a selinux di far passare il servizio
+    err := http.ListenAndServe(conf.Address+":"+conf.Port, nil) 
+        if (err != nil) {
+            utils.Log(utils.ERROR, "ProgettoFEM Service", "Error on ListenAndServe: "+err.Error())
+        }
 }
