@@ -96,7 +96,7 @@ func (back FEMbackend) HandlerSaveAccess(w http.ResponseWriter, r *http.Request)
 			
 			values = append(values, n.Door)
 			values = append(values, n.Date)
-			values = append(values, strconv.FormatInt(n.House, 10))
+			values = append(values, strconv.FormatInt(int64(n.House), 10))
 			values = append(values, n.Who)
 
 			r:=back.mDBHelper.Insert("access",coloumns,values)
