@@ -110,7 +110,7 @@ func (back FEMbackend) HandlerSaveUser(w http.ResponseWriter, r *http.Request) {
 
 		req := r.FormValue("req") //leggo il parametro
 
-		u=u.Create(0,"test","1234")
+		u.Create(0,"test","1234")
 		
 
 
@@ -126,7 +126,7 @@ func (back FEMbackend) HandlerSaveUser(w http.ResponseWriter, r *http.Request) {
 		values = append(values, u.Name)
 		values = append(values, u.RegID)
 
-		r:=mDBHelper.Insert("users",coloumns,values)
+		r:=back.mDBHelper.Insert("users",coloumns,values)
 		utils.Log(utils.ASSERT, "ProgettoFEM Backend", r)
 		fmt.Println(r)
 
