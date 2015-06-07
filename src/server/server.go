@@ -71,7 +71,7 @@ func (back FEMbackend) HandlerSaveAccess(w http.ResponseWriter, r *http.Request)
 		utils.Log(utils.ASSERT, "ProgettoFEM Backend", "HTTP Method is correct")
 
 
-		//{"door":"Garage Door","who":"Salvatore","time":1433697822,"idhouse":3}
+		//{"door":"Garage Door","who":"Salvatore","time":"1433697822","idhouse":3}
 		req := r.FormValue("req") //leggo il parametro
 		fmt.Println(req)
 
@@ -92,7 +92,7 @@ func (back FEMbackend) HandlerSaveAccess(w http.ResponseWriter, r *http.Request)
 
 			coloumns = append(coloumns, "door")
 			coloumns = append(coloumns, "time")
-			coloumns = append(coloumns, "idhouse")
+			coloumns = append(coloumns, "id_house")
 			coloumns = append(coloumns, "who")
 			
 			values = append(values, n.Door)
