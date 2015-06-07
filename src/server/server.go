@@ -96,8 +96,8 @@ func (back FEMbackend) HandlerSaveAccess(w http.ResponseWriter, r *http.Request)
 
 func (back FEMbackend) HandlerSaveUser(w http.ResponseWriter, r *http.Request) { //esportata inizia per maiuscola
 
-	//var n access.Access
-	var err error
+	
+	
 	var u user.User
 
 
@@ -109,6 +109,7 @@ func (back FEMbackend) HandlerSaveUser(w http.ResponseWriter, r *http.Request) {
 		//{"title":"Go is stunning!!","sub":"Go http package features","content":"Great http services with go and is awesome http package"}
 
 		req := r.FormValue("req") //leggo il parametro
+		fmt.Println("HTTP Method is wrong")
 
 		u.Create(0,"test","1234")
 		
