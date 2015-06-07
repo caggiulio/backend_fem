@@ -51,9 +51,9 @@ func CreateFromJSONRequest(jsonRequest string) (Access,error) {
     err := json.Unmarshal([]byte(jsonRequest), &a) //parso il json
 
     if(err==nil){
-        n.Create(0,a.Name,a.Door,a.Who,a.House)
+        n.Create(0,a.Door,a.Who,a.Date,a.House)
     }
-    
+
     return n,err
    
 
