@@ -70,7 +70,7 @@ func (dbh *DBHelper) connect() ( error) {
 		return  err
 
 	} else {
-		utils.Log(utils.DEBUG, "ProgettoFEM DBHelper PROD", "DB Connection String: " + dbh.Config.DBUser+":"+dbh.Config.DBPassword+"@tcp("+dbh.Config.DBHost+":"+dbh.Config.DBPort+")/"+dbh.Config.DBName)
+		utils.Log(utils.DEBUG, "ProgettoFEM DBHelper PROD", "DB Connection..")
 		db, err := sql.Open("mysql", dbh.Config.DBUser+":"+dbh.Config.DBPassword+"@tcp("+dbh.Config.DBHost+":"+dbh.Config.DBPort+")/"+dbh.Config.DBName)
 		if (err != nil) {
 			fmt.Println(err.Error())

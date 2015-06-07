@@ -41,8 +41,9 @@ func (back FEMbackend) HandlerGetAccess(w http.ResponseWriter, r *http.Request) 
 
 	if (r.Method == "GET"){
 		fmt.Println("HTTP Method is correct")
+		utils.Log(utils.ASSERT, "ProgettoFEM Backend", "HTTP Method is correct")
 
-	n.Create(3,"Garage Door","Salvatore",time.Now())
+		n.Create(3,"Garage Door","Salvatore",time.Now())
 
 
 
@@ -53,9 +54,10 @@ func (back FEMbackend) HandlerGetAccess(w http.ResponseWriter, r *http.Request) 
 
 
     printResult(w,s)
-    }else{
-    	fmt.Println("HTTP Method is wrong")
-    }
+}else{
+	fmt.Println("HTTP Method is wrong")
+	utils.Log(utils.WARNING, "ProgettoFEM Backend", "HTTP Method is wrong")
+}
 }
 
 func (back FEMbackend) HandlerSaveAccess(w http.ResponseWriter, r *http.Request) { //esportata inizia per maiuscola
@@ -66,6 +68,7 @@ func (back FEMbackend) HandlerSaveAccess(w http.ResponseWriter, r *http.Request)
 
 	if (r.Method == "POST"){
 		fmt.Println("HTTP Method is correct")
+		utils.Log(utils.ASSERT, "ProgettoFEM Backend", "HTTP Method is correct")
 
 
 		//{"title":"Go is stunning!!","sub":"Go http package features","content":"Great http services with go and is awesome http package"}
@@ -82,6 +85,7 @@ func (back FEMbackend) HandlerSaveAccess(w http.ResponseWriter, r *http.Request)
 
 	}else{
 		fmt.Println("HTTP Method is wrong")
+		utils.Log(utils.WARNING, "ProgettoFEM Backend", "HTTP Method is wrong")
 		printResult(w,"404")
 			//si potrebbe ridirezionare ad un errore
 	}
@@ -94,26 +98,44 @@ func (back FEMbackend) HandlerSaveUser(w http.ResponseWriter, r *http.Request) {
 
 	//var n access.Access
 	var err error
+	var u user.User
 
 
 	if (r.Method == "POST"){
 		fmt.Println("HTTP Method is correct")
+		utils.Log(utils.ASSERT, "ProgettoFEM Backend", "HTTP Method is correct")
 
 
 		//{"title":"Go is stunning!!","sub":"Go http package features","content":"Great http services with go and is awesome http package"}
 
 		req := r.FormValue("req") //leggo il parametro
 
-		_,err=user.CreateFromJSON(req)
-		if err!=nil{
-			fmt.Println("error %s",err)
-		}else{
-			printResult(w,"{res:true}")
-			//printResult(w,n.Title + " \n" + n.SubTitle + " \n" + n.Content)
-		}
+		u=u.Create(0,"test","1234")
+		
+
+
+		
+
+		coloumns := make([]string, 0, 0)
+		values := make([]string, 0, 0)
+
+
+		coloumns = append(coloumns, "name")
+		coloumns = append(coloumns, "registrationid")
+		
+		values = append(values, u.Name)
+		values = append(values, u.RegID)
+
+		r:=mDBHelper.Insert("users",coloumns,values)
+		utils.Log(utils.ASSERT, "ProgettoFEM Backend", r)
+		fmt.Println(r)
+
+		printResult(w,"{res:true}")
+		
 
 	}else{
 		fmt.Println("HTTP Method is wrong")
+		utils.Log(utils.WARNING, "ProgettoFEM Backend", "HTTP Method is wrong")
 		printResult(w,"404")
 			//si potrebbe ridirezionare ad un errore
 	}
