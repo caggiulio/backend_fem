@@ -73,6 +73,7 @@ func (back FEMbackend) HandlerSaveAccess(w http.ResponseWriter, r *http.Request)
 
 		//{"door":"Garage Door","who":"Salvatore","time":1433697822,"idhouse":3}
 		req := r.FormValue("req") //leggo il parametro
+		fmt.Println(req)
 
 		n,err=access.CreateFromJSONRequest(req)
 		if err!=nil{
