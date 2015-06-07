@@ -1,34 +1,61 @@
 package access
 
 import ("encoding/json"
-        "time")
+        )
 
+
+
+type Access_Request struct{
+
+    Door string `json:"door"`
+    Who string  `json:"who"`
+    Date string  `json:"time"`
+    House int `json:"house"`
+}
 
 type Access struct{
 
-    ID 	int     `json:"id"`    //indicano come sono chiamti i campi nel json
+    ID 	int     `json:"idaccess"`    //indicano come sono chiamti i campi nel json
     Door string	`json:"door"`
     Who string	`json:"who"`
-    Date time.Time   `json:"time"`
+    Date string  `json:"time"`
+    House int   `json:"id_house"`
 
 }
 
 
-func (a *Access) Create (id int,door string, who string, date time.Time) {
+func (a *Access) Create (id int,door string, who string, date string,ida int) {
 	a.ID=id
 	a.Door=door
 	a.Who=who
-    a.Date = date	
+    a.Date = date
+    a.House = ida
 }
 
 func CreateFromJSON(jsonRequest string) (Access,error) {
 	
 	var n Access
 
-	//err := json.Unmarshal([]byte(jsonRequest), &n) //parso il json
+	err := json.Unmarshal([]byte(jsonRequest), &n) //parso il json
 
-    //return n,err
-    return n,nil
+    return n,err
+
+
+}
+
+func CreateFromJSONRequest(jsonRequest string) (Access,error) {
+    
+    var n Access
+    var a Access_Request
+
+    err := json.Unmarshal([]byte(jsonRequest), &a) //parso il json
+
+    if(err==nil){
+        n.Create(0,a.Name,a.Door,a.Who,a.House)
+    }
+    
+    return n,err
+   
 
 }
 

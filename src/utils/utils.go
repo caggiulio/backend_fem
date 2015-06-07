@@ -63,7 +63,7 @@ func LoadConfiguration() Configuration {
 
     for scanner.Scan() {
         line=scanner.Text()
-		fmt.Printf("%v\n", line)
+		//fmt.Printf("%v\n", line)
 		
         if !strings.HasPrefix(line,"#"){
             strArr:=strings.Split(line," ")

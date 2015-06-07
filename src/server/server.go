@@ -62,7 +62,7 @@ func (back FEMbackend) HandlerGetAccess(w http.ResponseWriter, r *http.Request) 
 
 func (back FEMbackend) HandlerSaveAccess(w http.ResponseWriter, r *http.Request) { //esportata inizia per maiuscola
 
-	//var n access.Access
+	var n access.Access
 	var err error
 
 
@@ -71,15 +71,41 @@ func (back FEMbackend) HandlerSaveAccess(w http.ResponseWriter, r *http.Request)
 		utils.Log(utils.ASSERT, "ProgettoFEM Backend", "HTTP Method is correct")
 
 
-		//{"title":"Go is stunning!!","sub":"Go http package features","content":"Great http services with go and is awesome http package"}
-
+		//{"door":"Garage Door","who":"Salvatore","time":123456789,"idhouse":3}
 		req := r.FormValue("req") //leggo il parametro
 
-		_,err=access.CreateFromJSON(req)
+		n,err=access.CreateFromJSONRequest(req)
 		if err!=nil{
 			fmt.Println("error %s",err)
+
+
+
+
 		}else{
+			
+
+
+			coloumns := make([]string, 0, 0)
+			values := make([]string, 0, 0)
+
+
+			coloumns = append(coloumns, "door")
+			coloumns = append(coloumns, "time")
+			coloumns = append(coloumns, "idhouse")
+			coloumns = append(coloumns, "who")
+			
+			values = append(values, n.Door)
+			values = append(values, strconv.FormatInt(u.Time, 10))
+			values = append(values, strconv.FormatInt(u.House, 10))
+			values = append(values, u.Who)
+
+			r:=back.mDBHelper.Insert("access",coloumns,values)
+			utils.Log(utils.ASSERT, "ProgettoFEM Backend", r)
+			fmt.Println(r)
+
 			printResult(w,"{res:true}")
+
+
 			//printResult(w,n.Title + " \n" + n.SubTitle + " \n" + n.Content)
 		}
 
