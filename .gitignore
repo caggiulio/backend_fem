@@ -25,4 +25,6 @@ _testmain.go
 
 credentials
 
+fem.conf
+
 #remeber to export gopath to current directory

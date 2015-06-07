@@ -45,22 +45,22 @@ func (dbh *DBHelper) connect() ( error) {
 	//conf := utils.LoadConfiguration()
 
 	if (dbh.Config.Debug){
-		utils.Log(utils.DEBUG, "GDGBackend DBHelper Debug", "DB Connection String: " + dbh.Config.DBUser+":"+dbh.Config.DBPassword+"@tcp("+dbh.Config.DBHost+":"+dbh.Config.DBPort+")/"+dbh.Config.DBName)
+		utils.Log(utils.DEBUG, "ProgettoFEM DBHelper Debug", "DB Connection String: " + dbh.Config.DBUser+":"+dbh.Config.DBPassword+"@tcp("+dbh.Config.DBHost+":"+dbh.Config.DBPort+")/"+dbh.Config.DBName)
 		db, err := sql.Open("mysql", dbh.Config.DBUser+":"+dbh.Config.DBPassword+"@tcp("+dbh.Config.DBHost+":"+dbh.Config.DBPort+")/"+dbh.Config.DBName)
 		if (err != nil) {
 			fmt.Println(err.Error())
-			utils.Log(utils.ERROR, "GDGBackend DBHelper", "Error: " + err.Error())
+			utils.Log(utils.ERROR, "ProgettoFEM DBHelper", "Error: " + err.Error())
 			return err
 		}
 		dbh.db=db
 		return  err
 
 	} else {
-		utils.Log(utils.DEBUG, "GDGBackend DBHelper PROD", "DB Connection String: " + dbh.Config.DBUser+":"+dbh.Config.DBPassword+"@tcp("+dbh.Config.DBHost+":"+dbh.Config.DBPort+")/"+dbh.Config.DBName)
+		utils.Log(utils.DEBUG, "ProgettoFEM DBHelper PROD", "DB Connection String: " + dbh.Config.DBUser+":"+dbh.Config.DBPassword+"@tcp("+dbh.Config.DBHost+":"+dbh.Config.DBPort+")/"+dbh.Config.DBName)
 		db, err := sql.Open("mysql", dbh.Config.DBUser+":"+dbh.Config.DBPassword+"@tcp("+dbh.Config.DBHost+":"+dbh.Config.DBPort+")/"+dbh.Config.DBName)
 		if (err != nil) {
 			fmt.Println(err.Error())
-			utils.Log(utils.ERROR, "GDGBackend DBHelper", "Error: " + err.Error())
+			utils.Log(utils.ERROR, "ProgettoFEM DBHelper", "Error: " + err.Error())
 			return err
 		}
 		dbh.db=db
@@ -89,13 +89,13 @@ func (dbh DBHelper)RawQuery(query string) string {
 
 	err := dbh.connect()
 	if dbh.db==nil {
-		utils.Log(utils.ERROR, "GDGBackend DBHelper", "DB is nill!!!")
+		utils.Log(utils.ERROR, "ProgettoFEM DBHelper", "DB is nill!!!")
 		return strconv.Quote("false")
 	}
 
 	if (err != nil) {
 		fmt.Println(err.Error())
-		utils.Log(utils.ERROR, "GDGBackend DBHelper", "Error: " + err.Error())
+		utils.Log(utils.ERROR, "ProgettoFEM DBHelper", "Error: " + err.Error())
 		return strconv.Quote("false")
 	}
 	defer dbh.disconnect()
@@ -104,7 +104,7 @@ func (dbh DBHelper)RawQuery(query string) string {
 	rows, err := dbh.db.Query(query)
 	if (err != nil) {
 		fmt.Println(err.Error())
-		utils.Log(utils.ERROR, "GDGBackend DBHelper", "Error: " + err.Error())
+		utils.Log(utils.ERROR, "ProgettoFEM DBHelper", "Error: " + err.Error())
 		return strconv.Quote("false")
 	}
 	defer rows.Close()
@@ -112,7 +112,7 @@ func (dbh DBHelper)RawQuery(query string) string {
 	columns, err := rows.Columns()
 	if (err != nil) {
 		fmt.Println(err.Error())
-		utils.Log(utils.ERROR, "GDGBackend DBHelper", "Error: " + err.Error())
+		utils.Log(utils.ERROR, "ProgettoFEM DBHelper", "Error: " + err.Error())
 		return strconv.Quote("false")
 	}
 
@@ -130,7 +130,7 @@ func (dbh DBHelper)RawQuery(query string) string {
 
 		if (err != nil) {
 			fmt.Println(err.Error())
-			utils.Log(utils.ERROR, "GDGBackend DBHelper", "Error: " + err.Error())
+			utils.Log(utils.ERROR, "ProgettoFEM DBHelper", "Error: " + err.Error())
 			return strconv.Quote("false")
 		}
 
@@ -265,7 +265,7 @@ func (dbh DBHelper)Insert(table string , columns []string, values []string) stri
 	err := dbh.connect()
 	if (err != nil) {
 		fmt.Println(err.Error())
-		utils.Log(utils.ERROR, "GDGBackend DBHelper", "Error: " + err.Error())
+		utils.Log(utils.ERROR, "ProgettoFEM DBHelper", "Error: " + err.Error())
 		return strconv.Quote("false")
 	}
 	defer dbh.disconnect()
@@ -296,7 +296,7 @@ func (dbh DBHelper)Insert(table string , columns []string, values []string) stri
 
 	if (err != nil) {
 		fmt.Println(err.Error())
-		utils.Log(utils.ERROR, "GDGBackend DBHelper", "Error: " + err.Error())
+		utils.Log(utils.ERROR, "ProgettoFEM DBHelper", "Error: " + err.Error())
 		return strconv.Quote("false")
 	}
 	defer stmt.Close()
@@ -304,7 +304,7 @@ func (dbh DBHelper)Insert(table string , columns []string, values []string) stri
 	res, err := stmt.Exec()
 	if (err != nil) {
 		fmt.Println(err.Error())
-		utils.Log(utils.ERROR, "GDGBackend DBHelper", "Error: " + err.Error())
+		utils.Log(utils.ERROR, "ProgettoFEM DBHelper", "Error: " + err.Error())
 		return strconv.Quote("false")
 	}
 
@@ -329,7 +329,7 @@ func (dbh DBHelper)Update(table string , columns []string, values []string,where
 	err := dbh.connect()
 	if (err != nil) {
 		fmt.Println(err.Error())
-		utils.Log(utils.ERROR, "GDGBackend DBHelper", "Error: " + err.Error())
+		utils.Log(utils.ERROR, "ProgettoFEM DBHelper", "Error: " + err.Error())
 		return strconv.Quote("false")
 	}
 	defer dbh.disconnect()
@@ -356,7 +356,7 @@ func (dbh DBHelper)Update(table string , columns []string, values []string,where
 
 	if (err != nil) {
 		fmt.Println(err.Error())
-		utils.Log(utils.ERROR, "GDGBackend DBHelper", "Error: " + err.Error())
+		utils.Log(utils.ERROR, "ProgettoFEM DBHelper", "Error: " + err.Error())
 		return strconv.Quote("false")
 	}
 	defer stmt.Close()
@@ -364,7 +364,7 @@ func (dbh DBHelper)Update(table string , columns []string, values []string,where
 	res, err := stmt.Exec()
 	if (err != nil) {
 		fmt.Println(err.Error())
-		utils.Log(utils.ERROR, "GDGBackend DBHelper", "Error: " + err.Error())
+		utils.Log(utils.ERROR, "ProgettoFEM DBHelper", "Error: " + err.Error())
 		return strconv.Quote("false")
 	}
 
@@ -389,7 +389,7 @@ func (dbh DBHelper)Delete(table string , whereArgs string) string {
 	err := dbh.connect()
 	if (err != nil) {
 		fmt.Println(err.Error())
-		utils.Log(utils.ERROR, "GDGBackend DBHelper", "Error: " + err.Error())
+		utils.Log(utils.ERROR, "ProgettoFEM DBHelper", "Error: " + err.Error())
 		return strconv.Quote("false")
 	}
 	defer dbh.disconnect()
@@ -400,7 +400,7 @@ func (dbh DBHelper)Delete(table string , whereArgs string) string {
 
 	if (err != nil) {
 		fmt.Println(err.Error())
-		utils.Log(utils.ERROR, "GDGBackend DBHelper", "Error: " + err.Error())
+		utils.Log(utils.ERROR, "ProgettoFEM DBHelper", "Error: " + err.Error())
 		return strconv.Quote("false")
 	}
 	defer stmt.Close()
@@ -408,7 +408,7 @@ func (dbh DBHelper)Delete(table string , whereArgs string) string {
 	res, err := stmt.Exec()
 	if (err != nil) {
 		fmt.Println(err.Error())
-		utils.Log(utils.ERROR, "GDGBackend DBHelper", "Error: " + err.Error())
+		utils.Log(utils.ERROR, "ProgettoFEM DBHelper", "Error: " + err.Error())
 		return strconv.Quote("false")
 	}
 	i, _ := res.LastInsertId()

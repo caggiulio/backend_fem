@@ -1,13 +1,11 @@
 /**
-		GDG GoLang Backend Daemon
-        Copyright (C) 2014+  Gabriele Baldoni
+		ProgettoFEM Daemon
+        Copyright (C) 2015+  Gabriele Baldoni
  */
-package utils //nome package
+package utils 
 
-import ( //package importati
-    //"strconv"
+import ( 
     "os"
-    //"time"
     "fmt"
     "strings"
 	"bufio"
@@ -15,10 +13,7 @@ import ( //package importati
     "bytes"
 )
 
-const CONFFILE = "/etc/gdgbackend/backend.conf"
-const KEYFILE = "/etc/gdgbackend/keys"
-
-
+const CONFFILE = "/etc/progettofem/backend.conf"
 
 const (
     ASSERT = 0
@@ -44,70 +39,6 @@ func ( c Configuration) Check() bool {
 		return true
 	}
 	return false
-}
-
-/*func LoadHostConfiguration() (string,string){
- 
-    address:=""
-    port:=""
-
-
-    inputFile, err := os.Open(CONFFILE)
-    if CheckError(err) {
-        return address,port
-    }
- 
-    defer inputFile.Close()
- 
-    scanner := bufio.NewScanner(inputFile)
-
-    var line string
- 
-    for scanner.Scan() {
-        line=scanner.Text()
-
-        if !strings.HasPrefix(line,"#"){
-            strArr:=strings.Split(line," ")
-
-            switch (strArr[0]){
-
-                case "address": address=strArr[1]
-                                break;
-                case "port" :   port=strArr[1]
-                                break;
-                default :       Log(ERROR,"Configuration Loader","Error in configuration file")
-                                break;
-            } 
-        }
-    }
-    return address,port
-}*/
-
-
-func LoadKeys() []string {
-
-    keys := make([]string, 0, 0)
-
-
-
-
-    inputFile, err := os.Open(KEYFILE)
-    if err != nil {
-        fmt.Printf("%v", err)
-        return keys
-    }
-
-    defer inputFile.Close()
-
-    scanner := bufio.NewScanner(inputFile)
-
-    var line string
-
-    for scanner.Scan() {
-        line = scanner.Text()
-        keys = append(keys, line)
-    }
-    return keys
 }
 
 
@@ -168,10 +99,9 @@ func LoadConfiguration() Configuration {
     return mConf
 }
 
-//TODO scrivere log su /var/log/gdgbackend.log
 func Log(level int,tag string,txt string){
 
-	logfile:="/tmp/gdgbackend.log"
+	logfile:="/tmp/progettofem.log"
 
 
     //creo la funzione di log in modo tale da lanciarla in una goroutine separata
@@ -192,35 +122,23 @@ func Log(level int,tag string,txt string){
         switch(level){
             case ASSERT:
                 logger.Print("A: (" + tag+") "+txt+"\n")
-
                 f.Write(buf.Bytes())
-                //_,err=f.WriteString("A:"+ strconv.FormatInt(time.Now().UnixNano(),10)+" (" + tag+") "+txt+"\n")
-
-            //fmt.Println()
                 break
             case DEBUG:
                 logger.Print("D: (" + tag+") "+txt+"\n")
                 f.Write(buf.Bytes())
-                //_,err=f.WriteString("D:"+strconv.FormatInt(time.Now().UnixNano(),10)+" (" + tag+") "+txt+"\n")
-            //fmt.Println("D: (" + tag+") "+txt)
                 break
             case INFO:
                 logger.Print("I: (" + tag+") "+txt+"\n")
                 f.Write(buf.Bytes())
-                //_,err=f.WriteString("I:"+ strconv.FormatInt(time.Now().UnixNano(),10)+" (" + tag+") "+txt+"\n")
-            //fmt.Println("I: (" + tag+") "+txt)
                 break
             case WARNING:
                 logger.Print("W: (" + tag+") "+txt+"\n")
                 f.Write(buf.Bytes())
-                //_,err=f.WriteString("W:"+ strconv.FormatInt(time.Now().UnixNano(),10)+" (" + tag+") "+txt+"\n")
-            //fmt.Println("W: (" + tag+") "+txt)
                 break
             case ERROR:
                 logger.Print("E: (" + tag+") "+txt+"\n")
                 f.Write(buf.Bytes())
-                //_,err=f.WriteString("E:"+ strconv.FormatInt(time.Now().UnixNano(),10)+" (" + tag+") "+txt+"\n")
-            //fmt.Println("E: (" + tag+") "+txt)
                 break
             default:
                 break
