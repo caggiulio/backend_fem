@@ -108,8 +108,9 @@ func (back FEMbackend) HandlerSaveAccess(w http.ResponseWriter, r *http.Request)
 
 			//r:=back.mDBHelper.Insert("access",coloumns,values)
 
-			f:=back.mDBHelper.RawQuery("INSERT INTO access (door,time,id_house,who) VALUES ("+strconv.Quote(n.Door)+","+n.Date+","+ strconv.FormatInt(int64(n.House), 10)+","+strconv.Quote(n.Door)+")" )
+			f:=back.mDBHelper.RawQuery("INSERT INTO access (door,time,id_house,who) VALUES ("+strconv.Quote(n.Door)+","+n.Date+","+ strconv.FormatInt(int64(n.House), 10)+","+strconv.Quote(n.Who)+")" )
 
+			fmt.Println("INSERT INTO access (door,time,id_house,who) VALUES ("+strconv.Quote(n.Door)+","+n.Date+","+ strconv.FormatInt(int64(n.House), 10)+","+strconv.Quote(n.Who)+")")
 			utils.Log(utils.ASSERT, "ProgettoFEM Backend", f)
 			fmt.Println(f)
 
