@@ -10,7 +10,7 @@ type Access_Request struct{
     Door string `json:"door"`
     Who string  `json:"who"`
     Date string  `json:"time,int"`
-    House int `json:"house"`
+    House int `json:"id_house"`
 }
 
 type Access struct{
