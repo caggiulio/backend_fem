@@ -170,109 +170,6 @@ func (dbh DBHelper)RawQuery(query string) string {
 	return string(s)
 }
 
-// TODO correggere metodo Select
-/*func Select(table string,whereArgs string,columns ...string) string {
-	utils.Log(utils.ASSERT, "dbhelper", "executing Select on " + table)
-	barr := make([]map[string]interface{}, 0, 0)
-
-	db, err := connect()
-	if (err != nil) {
-		fmt.Println(err.Error())
-		return strconv.Quote("false")
-	}
-	defer disconnect(db)
-
-
-	var selColoumns string
-	selColoumns=""
-
-	for i := range columns {
-
-		selColoumns+=columns[i]
-		if (i != len(columns)-1) {
-			selColoumns+=","
-		}
-
-	}
-
-	var query string
-
-
-	if(whereArgs!=""){
-		query="Select " + selColoumns + " FROM "+table+" WHERE "+ whereArgs
-	} else {
-		query="Select " + selColoumns + " FROM "+table
-	}
-
-
-	stmt, err := db.Prepare(query)
-
-	if (err != nil) {
-		fmt.Println(err.Error())
-		utils.Log(utils.ERROR, "GDGBackend DBHelper", "Error: " + err.Error())
-		return strconv.Quote("false")
-	}
-	defer stmt.Close()
-
-
-	rows, err := stmt.Query(query)
-	if (err != nil) {
-		fmt.Println(err.Error())
-		utils.Log(utils.ERROR, "GDGBackend DBHelper", "Error: " + err.Error())
-		return strconv.Quote("false")
-	}
-	defer rows.Close()
-
-	qcolumns, err := rows.Columns()
-	if (err != nil) {
-		fmt.Println(err.Error())
-		utils.Log(utils.ERROR, "GDGBackend DBHelper", "Error: " + err.Error())
-		return strconv.Quote("false")
-	}
-
-	scanArgs := make([]interface{}, len(qcolumns))
-	values := make([]interface{}, len(qcolumns))
-
-	for i := range values {
-		scanArgs[i] = &values[i]
-	}
-
-
-	i := 0
-	count:=0
-	for rows.Next() {
-		err = rows.Scan(scanArgs...)
-		if (err != nil) {
-			fmt.Println(err.Error())
-			utils.Log(utils.ERROR, "GDGBackend DBHelper", "Error: " + err.Error())
-			return strconv.Quote("false")
-		}
-
-		record := make(map[string]interface{})
-
-		for i, col := range values {
-			if col != nil {
-				record[columns[i]] = fmt.Sprintf("%s", string(col.([]byte)))
-			}
-		}
-
-
-		barr = append(barr[i:], record)
-		count++
-	}
-
-
-
-	if count == 0 {
-		return strconv.Quote("null")
-	}
-
-	s, _ := json.Marshal(barr)
-	return string(s)
-}*/
-
-
-
 
 func (dbh DBHelper)Insert(table string , columns []string, values []string) string {
 
@@ -305,6 +202,8 @@ func (dbh DBHelper)Insert(table string , columns []string, values []string) stri
 		}
 
 	}
+
+	fmt.Println("INSERT INTO " + table + " (" + insColoumn + ") VALUES ( " + insValues + " )")
 
 	stmt, err := dbh.db.Prepare("INSERT INTO " + table + " (" + insColoumn + ") VALUES ( " + insValues + " )")
 
