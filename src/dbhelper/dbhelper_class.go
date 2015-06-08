@@ -88,7 +88,7 @@ func (dbh *DBHelper) connect() ( error) {
 
 }
 
-func (dbh *DBHelper)disconnect() {
+func (dbh *DBHelper) disconnect() {
 	dbh.db.Close()
 	dbh.db=nil
 }

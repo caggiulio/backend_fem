@@ -131,6 +131,148 @@ func (back FEMbackend) HandlerSaveAccess(w http.ResponseWriter, r *http.Request)
 }
 
 
+func (back FEMbackend) HandlerSaveAlarm(w http.ResponseWriter, r *http.Request) { //esportata inizia per maiuscola
+
+	var n access.Access
+	var err error
+
+
+	if (r.Method == "POST"){
+		fmt.Println("HTTP Method is correct")
+		utils.Log(utils.ASSERT, "ProgettoFEM Backend", "HTTP Method is correct")
+
+
+		//{"door":"Garage Door","who":"Salvatore","time":"1433697822","idhouse":3}
+		req := r.FormValue("req") //leggo il parametro
+		fmt.Println(req)
+
+		n,err=access.CreateFromJSONRequest(req)
+		if err!=nil{
+			fmt.Println("error %s",err)
+
+
+
+
+		}else{
+			
+
+
+			coloumns := make([]string, 0, 0)
+			values := make([]string, 0, 0)
+
+
+			coloumns = append(coloumns, "door")
+			coloumns = append(coloumns, "time")
+			coloumns = append(coloumns, "id_house")
+			coloumns = append(coloumns, "who")
+			
+			values = append(values, n.Door)
+			values = append(values, n.Date)
+			values = append(values, strconv.FormatInt(int64(n.House), 10))
+			values = append(values, n.Who)
+
+			fmt.Println(n)
+			
+
+
+			//INSERT INTO access (door,time,id_house,who) VALUES ( "Garage Door","1433697822","0","Salvatore" )
+
+			//r:=back.mDBHelper.Insert("access",coloumns,values)
+
+			f:=back.mDBHelper.RawQuery("INSERT INTO access (door,id_house,who,type) VALUES ("+strconv.Quote(n.Door)+","+ strconv.Itoa(n.House)+","+strconv.Quote(n.Who)+","+strconv.Itoa(2)+")" )
+
+			//fmt.Println("INSERT INTO access (door,id_house,who) VALUES ("+strconv.Quote(n.Door)+","+ strconv.Itoa(n.House)+","+strconv.Quote(n.Who)+")")
+			utils.Log(utils.ASSERT, "ProgettoFEM Backend", f)
+			fmt.Println(f)
+
+			printResult(w,"{res:true}")
+
+
+			//printResult(w,n.Title + " \n" + n.SubTitle + " \n" + n.Content)
+		}
+
+	}else{
+		fmt.Println("HTTP Method is wrong")
+		utils.Log(utils.WARNING, "ProgettoFEM Backend", "HTTP Method is wrong")
+		printResult(w,"404")
+			//si potrebbe ridirezionare ad un errore
+	}
+
+
+}
+
+
+func (back FEMbackend) HandlerSaveExit(w http.ResponseWriter, r *http.Request) { //esportata inizia per maiuscola
+
+	var n access.Access
+	var err error
+
+
+	if (r.Method == "POST"){
+		fmt.Println("HTTP Method is correct")
+		utils.Log(utils.ASSERT, "ProgettoFEM Backend", "HTTP Method is correct")
+
+
+		//{"door":"Garage Door","who":"Salvatore","time":"1433697822","idhouse":3}
+		req := r.FormValue("req") //leggo il parametro
+		fmt.Println(req)
+
+		n,err=access.CreateFromJSONRequest(req)
+		if err!=nil{
+			fmt.Println("error %s",err)
+
+
+
+
+		}else{
+			
+
+
+			coloumns := make([]string, 0, 0)
+			values := make([]string, 0, 0)
+
+
+			coloumns = append(coloumns, "door")
+			coloumns = append(coloumns, "time")
+			coloumns = append(coloumns, "id_house")
+			coloumns = append(coloumns, "who")
+			
+			values = append(values, n.Door)
+			values = append(values, n.Date)
+			values = append(values, strconv.FormatInt(int64(n.House), 10))
+			values = append(values, n.Who)
+
+			fmt.Println(n)
+			
+
+
+			//INSERT INTO access (door,time,id_house,who) VALUES ( "Garage Door","1433697822","0","Salvatore" )
+
+			//r:=back.mDBHelper.Insert("access",coloumns,values)
+
+			f:=back.mDBHelper.RawQuery("INSERT INTO access (door,id_house,who,type) VALUES ("+strconv.Quote(n.Door)+","+ strconv.Itoa(n.House)+","+strconv.Quote(n.Who)+","+strconv.Itoa(1)+")" )
+
+			//fmt.Println("INSERT INTO access (door,id_house,who) VALUES ("+strconv.Quote(n.Door)+","+ strconv.Itoa(n.House)+","+strconv.Quote(n.Who)+")")
+			utils.Log(utils.ASSERT, "ProgettoFEM Backend", f)
+			fmt.Println(f)
+
+			printResult(w,"{res:true}")
+
+
+			//printResult(w,n.Title + " \n" + n.SubTitle + " \n" + n.Content)
+		}
+
+	}else{
+		fmt.Println("HTTP Method is wrong")
+		utils.Log(utils.WARNING, "ProgettoFEM Backend", "HTTP Method is wrong")
+		printResult(w,"404")
+			//si potrebbe ridirezionare ad un errore
+	}
+
+
+}
+
+
 func (back FEMbackend) HandlerSaveUser(w http.ResponseWriter, r *http.Request) { //esportata inizia per maiuscola
 
 	
