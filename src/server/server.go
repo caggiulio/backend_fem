@@ -100,17 +100,17 @@ func (back FEMbackend) HandlerSaveAccess(w http.ResponseWriter, r *http.Request)
 			values = append(values, strconv.FormatInt(int64(n.House), 10))
 			values = append(values, n.Who)
 
-			fmt.Println(values)
-			fmt.Println(coloumns)
+			fmt.Println(n)
+			
 
 
 			//INSERT INTO access (door,time,id_house,who) VALUES ( "Garage Door","1433697822","0","Salvatore" )
 
 			//r:=back.mDBHelper.Insert("access",coloumns,values)
 
-			f:=back.mDBHelper.RawQuery("INSERT INTO access (door,time,id_house,who) VALUES ("+strconv.Quote(n.Door)+","+n.Date+","+ strconv.FormatInt(int64(n.House), 10)+","+strconv.Quote(n.Who)+")" )
+			f:=back.mDBHelper.RawQuery("INSERT INTO access (door,id_house,who) VALUES ("+strconv.Quote(n.Door)+","+ strconv.Itoa(n.House)+","+strconv.Quote(n.Who)+")" )
 
-			fmt.Println("INSERT INTO access (door,id_house,who) VALUES ("+strconv.Quote(n.Door)+","+ n.House+","+strconv.Quote(n.Who)+")")
+			fmt.Println("INSERT INTO access (door,id_house,who) VALUES ("+strconv.Quote(n.Door)+","+ strconv.Itoa(n.House)+","+strconv.Quote(n.Who)+")")
 			utils.Log(utils.ASSERT, "ProgettoFEM Backend", f)
 			fmt.Println(f)
 
